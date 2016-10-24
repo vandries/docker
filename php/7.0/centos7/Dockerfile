@@ -12,6 +12,7 @@ RUN yum -y install \
     php-fpm \
     php-cli \
     php-pdo \
+    php-mysql \
     php-xml \
     php-posix \
     php-intl \
@@ -21,7 +22,7 @@ RUN yum clean all
 
 RUN set -ex \
 	&& cd /etc \
-  && sed '/include=/d' php-fpm.conf.default | tee php-fpm.conf > /dev/null \
+  && sed -e '/include=/d' php-fpm.conf \
   && { \
 		echo '[global]'; \
 		echo 'include=/etc/php-fpm.d/*.conf'; \
